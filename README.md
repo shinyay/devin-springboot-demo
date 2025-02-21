@@ -5,6 +5,8 @@ Devin is a tool that generates code from a given description using LLMs.
 
 ## Description
 
+- [Devin](https://app.devin.ai/)
+
 ## Demo
 
 ### Prompt
