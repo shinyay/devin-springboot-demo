@@ -49,6 +49,7 @@ The followings are requirements:
 ## References
 
 - [Introducing Devin](https://docs.devin.ai/get-started/devin-intro)
+- [GitHub Integration](https://docs.devin.ai/integrations/gh)
 
 ## Licence
 
