@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Management System</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Book Management System</h1>
+
+        <!-- Book Registration Form -->
+        <div class="form-group" id="bookForm">
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <h2>📖 Register New Book</h2>
+            <form th:action="@{/books}" th:object="${book}" method="post" id="bookRegistrationForm">
+                <div class="form-group">
+                    <label for="name">Book Name:</label>
+                    <input type="text" id="name" th:field="*{name}" class="form-control" 
+                           placeholder="Enter book name" required>
+                    <div th:if="${#fields.hasErrors('name')}" class="alert alert-danger" 
+                         th:errors="*{name}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" th:field="*{author}" class="form-control" 
+                           placeholder="Enter author name" required>
+                    <div th:if="${#fields.hasErrors('author')}" class="alert alert-danger" 
+                         th:errors="*{author}"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">Register Book</button>
+                <button type="button" class="btn btn-danger" onclick="resetForm()" 
+                        style="display: none;" id="cancelButton">Cancel</button>
+            </form>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="form-group">
+                <h2>🔍 Search by Name</h2>
+                <form th:action="@{/books/search}" method="get">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" 
+                               placeholder="Enter book name to search">
+                        <button type="submit" class="btn btn-primary">Search Books</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="form-group">
+                <h2>👤 Search by Author</h2>
+                <form th:action="@{/books/search}" method="get">
+                    <div class="form-group">
+                        <input type="text" name="author" class="form-control" 
+                               placeholder="Enter author name to search">
+                        <button type="submit" class="btn btn-primary">Search Authors</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Book List -->
+        <div class="table-container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>📚 Book Collection</h2>
+                <form th:action="@{/books/delete-all}" method="post">
+                    <button type="submit" class="btn btn-danger" 
+                            onclick="return confirm('Are you sure you want to delete all books?')">
+                        Delete All Books
+                    </button>
+                </form>
+            </div>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Author</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(books)}">
+                        <td colspan="3" style="text-align: center;">No books found. Add your first book above!</td>
+                    </tr>
+                    <tr th:each="book : ${books}">
+                        <td th:text="${book.name}"></td>
+                        <td th:text="${book.author}"></td>
+                        <td>
+                            <button class="btn btn-primary" 
+                                    th:attr="onclick=|editBook(${book.id},'${book.name}','${book.author}')|">
+                                Edit
+                            </button>
+                            <form th:action="@{/books/{id}/delete(id=${book.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger" 
+                                        th:attr="onclick=|return confirm('Delete ${book.name}?')|">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const contextPath = /*[[@{/}]]*/ '';
+        
+        function editBook(id, name, author) {
+            const form = document.getElementById('bookRegistrationForm');
+            form.action = contextPath + 'books/' + id;
+            document.getElementById('name').value = name;
+            document.getElementById('author').value = author;
+            document.querySelector('button[type="submit"]').textContent = 'Update Book';
+            document.getElementById('cancelButton').style.display = 'inline-block';
+            window.scrollTo(0, 0);
+        }
+
+        function resetForm() {
+            const form = document.getElementById('bookRegistrationForm');
+            form.action = contextPath + 'books';
+            form.reset();
+            document.querySelector('button[type="submit"]').textContent = 'Register Book';
+            document.getElementById('cancelButton').style.display = 'none';
+        }
+        /*]]>*/
+    </script>
+</body>
+</html>
