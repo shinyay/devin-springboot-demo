@@ -7,6 +7,32 @@ Devin is a tool that generates code from a given description using LLMs.
 
 ## Demo
 
+### Prompt
+
+```
+I want to create a book management system.
+The followings are requirements:
+## Functional Requirements
+- Managing Books
+- Ensure that you can do the following in managing
+  - Register your book
+  - Book Reference
+    - Browse by book name
+    - Browse by book author
+  - Update book
+  - Delete all registered books
+  - Delete individual books
+
+## Technical Requirements
+- Java 21
+- Spring Boot 3.4
+- You can persist your data in Database
+  - H2 Databese
+- UI should be rich
+  - Thymeleaf
+  - CSS
+```
+
 ## Features
 
 - feature:1
