@@ -51,6 +51,7 @@ The followings are requirements:
 - [Introducing Devin](https://docs.devin.ai/get-started/devin-intro)
   - [Quick Start](https://docs.devin.ai/get-started/quickstart)
   - [GitHub Integration](https://docs.devin.ai/integrations/gh)
+  - [Azure DevOps](https://docs.devin.ai/integrations/azure-devops)
 - [Release Notes](https://docs.devin.ai/release-notes)
 
 ## Licence
