@@ -1,5 +1,8 @@
 # Auto Code Generation Sample with Devin
 
+This repository is a sample of auto code generation with Devin.
+Devin is a tool that generates code from a given description using LLMs.
+
 ## Description
 
 ## Demo
